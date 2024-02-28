@@ -33,31 +33,48 @@ artsRouter.get('/:id', async (request, response, next) => {
     }
 })
 
-artsRouter.post('/', async (request, response, next) => {
+
+artsRouter.post('/', async (request,response,next) => {
     const { name, category, price } = request.body
 
+    const art = new Art({
+        name,
+        category,
+        price
+    })
     try {
-        const decoded = jwt.decode(getRequestToken(request), process.env.SECRET)
-
-        if (!decoded.id) {
-            return response.status(401).json({ error: 'invalid or missing token' })
-        }
-
-        const artist = await Artist.findOne(decoded.id)
-        const art = new Art({
-            name,
-            category,
-            price,
-            artist: decoded.id
-        })
         const savedArt = await art.save()
-        artist.arts = artist.arts.concat(savedArt.id)
-        await artist.save()
         response.status(201).json(savedArt)
     } catch (error) {
         next(error)
     }
 })
+
+// artsRouter.post('/', async (request, response, next) => {
+//     const { name, category, price } = request.body
+
+//     try {
+//         const decoded = jwt.decode(getRequestToken(request), process.env.SECRET)
+
+//         if (!decoded.id) {
+//             return response.status(401).json({ error: 'invalid or missing token' })
+//         }
+
+//         const artist = await Artist.findOne(decoded.id)
+//         const art = new Art({
+//             name,
+//             category,
+//             price,
+//             artist: decoded.id
+//         })
+//         const savedArt = await art.save()
+//         artist.arts = artist.arts.concat(savedArt.id)
+//         await artist.save()
+//         response.status(201).json(savedArt)
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
 artsRouter.put('/:id', async (request, response, next) => {
     const { name, category, price } = request.body
@@ -86,10 +103,6 @@ artsRouter.put('/:id', async (request, response, next) => {
 })
 
 artsRouter.delete('/:id', async (request, response, next) => {
-    const decoded = jwt.decode(getRequestToken(request))
-    if (!decoded.id) {
-        return response.status(401).json({ error: 'invalid or missing token' })
-    }
     try {
         await Art.findByIdAndDelete(request.params.id)
         response.status(204).end()
@@ -97,6 +110,19 @@ artsRouter.delete('/:id', async (request, response, next) => {
         next(error)
     }
 })
+
+// artsRouter.delete('/:id', async (request, response, next) => {
+//     const decoded = jwt.decode(getRequestToken(request))
+//     if (!decoded.id) {
+//         return response.status(401).json({ error: 'invalid or missing token' })
+//     }
+//     try {
+//         await Art.findByIdAndDelete(request.params.id)
+//         response.status(204).end()
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
 
 module.exports = artsRouter
