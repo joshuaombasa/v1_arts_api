@@ -4,7 +4,7 @@ const artSchema = new mongoose.Schema({
     name: { type: String, minLength: 5, required: true },
     category: { type: String, minLength: 5, required: true },
     price: { type: String, required: true },
-    artist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artists' }
+    artist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artist' }
 })
 
 artSchema.set('toJSON', {
