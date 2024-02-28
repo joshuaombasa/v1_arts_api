@@ -4,7 +4,7 @@ const artistSchema = new mongoose.Schema({
     username:{type:String, minLength:5 ,required: true},
     name:{type:String, minLength:5 ,required: true},
     passwordHash:{type:String, minLength:5 ,required: true},
-    arts:[{type:mongoose.Schema.Types.ObjectId,ref: 'Arts'}]
+    arts:[{type:mongoose.Schema.Types.ObjectId,ref: 'Art'}]
 })
 
 artistSchema.set('toJSON', {
