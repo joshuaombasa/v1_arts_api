@@ -54,7 +54,7 @@ artsRouter.post('/', async (request,response,next) => {
 //     const { name, category, price } = request.body
 
 //     try {
-//         const decoded = jwt.decode(getRequestToken(request), process.env.SECRET)
+//         const decoded = jwt.verify(getRequestToken(request), process.env.SECRET)
 
 //         if (!decoded.id) {
 //             return response.status(401).json({ error: 'invalid or missing token' })
@@ -78,7 +78,7 @@ artsRouter.post('/', async (request,response,next) => {
 
 artsRouter.put('/:id', async (request, response, next) => {
     const { name, category, price } = request.body
-    const decoded = jwt.decode(getRequestToken(request), process.env.SECRET)
+    const decoded = jwt.verify(getRequestToken(request), process.env.SECRET)
     if (!decoded.id) {
         return response.status(401).json({ error: 'invalid or missing token' })
     }
@@ -112,7 +112,7 @@ artsRouter.delete('/:id', async (request, response, next) => {
 })
 
 // artsRouter.delete('/:id', async (request, response, next) => {
-//     const decoded = jwt.decode(getRequestToken(request))
+//     const decoded = jwt.verify(getRequestToken(request))
 //     if (!decoded.id) {
 //         return response.status(401).json({ error: 'invalid or missing token' })
 //     }
