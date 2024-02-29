@@ -57,7 +57,7 @@ artsRouter.post('/', async (request,response,next) => {
 //         const decoded = jwt.verify(getRequestToken(request), process.env.SECRET)
 
 //         if (!decoded.id) {
-//             return response.status(401).json({ error: 'invalid or missing token' })
+//             return response.status(401).json({ error: 'invalid token' })
 //         }
 
 //         const artist = await Artist.findOne(decoded.id)
@@ -114,7 +114,7 @@ artsRouter.delete('/:id', async (request, response, next) => {
 // artsRouter.delete('/:id', async (request, response, next) => {
 //     const decoded = jwt.verify(getRequestToken(request))
 //     if (!decoded.id) {
-//         return response.status(401).json({ error: 'invalid or missing token' })
+//         return response.status(401).json({ error: 'invalid  token' })
 //     }
 //     try {
 //         await Art.findByIdAndDelete(request.params.id)
